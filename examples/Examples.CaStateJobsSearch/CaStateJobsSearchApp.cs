@@ -75,7 +75,7 @@ namespace Simple.Selenium.Examples.CaStateJobsSearch
 
         public JobSearchPage()
         {
-            IndicatingLocator = jobTitleTextField.Locator;
+            IndicatingElementLocator = jobTitleTextField.Locator;
         }
 
         public virtual JobSearchPage DoSearch(string jobTitle, bool titleSearchOnly)
@@ -101,7 +101,7 @@ namespace Simple.Selenium.Examples.CaStateJobsSearch
 
         public ExamsAndJobVacanciesSearchResultsPage()
         {
-            IndicatingLocator = table.Locator;
+            IndicatingElementLocator = table.Locator;
         }
 
         public virtual void LoopThroughJobTitles(SimpleHtmlWriter htmlWriter)
@@ -147,7 +147,7 @@ namespace Simple.Selenium.Examples.CaStateJobsSearch
 
         public JobVacancySearchResultsPage()
         {
-            IndicatingLocator = table.Locator;
+            IndicatingElementLocator = table.Locator;
         }
 
         public void LoopThroughJobVacancies(SimpleHtmlWriter htmlWriter)
@@ -270,7 +270,7 @@ namespace Simple.Selenium.Examples.CaStateJobsSearch
 
         public JobPostPage()
         {
-            IndicatingLocator = jobDesc.Locator;
+            IndicatingElementLocator = jobDesc.Locator;
         }
 
         public Tuple<String, String, IList<string>> GetDetails(string jobTitle)

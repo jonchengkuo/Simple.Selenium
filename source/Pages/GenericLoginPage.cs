@@ -9,15 +9,24 @@ namespace Simple.Selenium.Pages
     {
         public readonly TextField UserNameTextField;
         public readonly TextField PasswordTextField;
-        public readonly CheckBox RememberMeCheckBox;
         public readonly Button LogInButton;
 
+        /// <summary>
+        /// A generic Page Object class for a typical login page that contains 3 components:
+        /// 1) a user name text field, 2) a password text field, and 3) a log-in button.
+        /// A login Page Object of this class is specified using the element locators of these 3 components.
+        /// It uses the visibility of the user name text field to determine the availability of this page.
+        /// </summary>
+        /// <param name="userNameTextFieldLocator"></param>
+        /// <param name="passwordTextFieldLocator"></param>
+        /// <param name="loginButtonLocator"></param>
+        /// <param name="webDriver"></param>
         public GenericLoginPage(
             By userNameTextFieldLocator,
             By passwordTextFieldLocator,
             By loginButtonLocator,
-            By rememberMeCheckBoxLocator = null,
             IWebDriver webDriver = null)
+            : base(userNameTextFieldLocator, webDriver)
         {
             if (userNameTextFieldLocator == null)
             {
@@ -35,30 +44,17 @@ namespace Simple.Selenium.Pages
             UserNameTextField = new TextField(userNameTextFieldLocator, webDriver);
             PasswordTextField = new TextField(passwordTextFieldLocator, webDriver);
             LogInButton = new Button(loginButtonLocator, webDriver);
-            if (rememberMeCheckBoxLocator != null)
-            {
-                RememberMeCheckBox = new CheckBox(rememberMeCheckBoxLocator, webDriver);
-            }
-
-            // Use the visibility of the User Name text field to determine the availability of this page.
-            IndicatingLocator = userNameTextFieldLocator;
         }
 
-        public void LogInAs(string username, string password, bool rememberMe = false)
+        /// <summary>
+        /// Simulates the Web UI interactions of logging in to the login page.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public void LogInAs(string username, string password)
         {
             UserNameTextField.EnterText(username);
             PasswordTextField.EnterText(password);
-            if (RememberMeCheckBox != null)
-            {
-                if (rememberMe)
-                {
-                    RememberMeCheckBox.Check();
-                }
-                else
-                {
-                    RememberMeCheckBox.Uncheck();
-                }
-            }
             LogInButton.Click();
         }
     }

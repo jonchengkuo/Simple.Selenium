@@ -204,7 +204,7 @@ namespace Simple.Selenium.Controls
         }
 
         /// <summary>
-        /// Returns whether this UI control becomes exists (i.e., present in the DOM tree) or not,
+        /// Returns whether this UI control exists (i.e., present in the DOM tree) or not,
         /// within the <seealso cref="ImplicitWaitTimeout"/>, which can be configured and defaults to
         /// <seealso cref="WebUISettings.DefaultImplicitWaitTimeoutInSeconds"/>.
         /// </summary>
@@ -216,7 +216,7 @@ namespace Simple.Selenium.Controls
         }
 
         /// <summary>
-        /// Returns whether this UI control becomes exists (i.e., present in the DOM tree) or not
+        /// Returns whether this UI control exists (i.e., present in the DOM tree) or not
         /// within the specified timeout.
         /// If the specified timeout is 0, it will check the current existence of this UI control.
         /// If the specified timeout is greater than 0, it will periodically (every half second)
@@ -261,11 +261,11 @@ namespace Simple.Selenium.Controls
         }
 
         /// <summary>
-        /// Property indicating whether this UI control becomes visible or not,
+        /// Property indicating whether this UI control is visible or not,
         /// within the <seealso cref="ImplicitWaitTimeout"/>, which can be configured and defaults to
         /// <seealso cref="WebUISettings.DefaultImplicitWaitTimeoutInSeconds"/>.
         /// </summary>
-        /// <returns> <code>true</code> if this UI control exists within the default implicit wait timeout;
+        /// <returns> <code>true</code> if this UI control exists and is visible within the default implicit wait timeout;
         ///         <code>false</code> otherwise </returns>
         public virtual bool IsVisible()
         {
@@ -273,7 +273,7 @@ namespace Simple.Selenium.Controls
         }
 
         /// <summary>
-        /// Returns whether this UI control becomes visible or not within the specified timeout.
+        /// Returns whether this UI control is visible or not within the specified timeout.
         /// If the specified timeout is 0, it will check the current visibility of this UI control.
         /// If the specified timeout is greater than 0, it will periodically (every half second)
         /// check until the specified timeout is reached.
@@ -291,6 +291,45 @@ namespace Simple.Selenium.Controls
             try
             {
                 WaitUntilVisible(timeout);
+                return true;
+            }
+            catch (WebDriverTimeoutException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Property indicating whether this UI control is invisible or not,
+        /// within the <seealso cref="ImplicitWaitTimeout"/>, which can be configured and defaults to
+        /// <seealso cref="WebUISettings.DefaultImplicitWaitTimeoutInSeconds"/>.
+        /// </summary>
+        /// <returns> <code>true</code> if this UI control does not exists or is invisible within the default implicit wait timeout;
+        ///         <code>false</code> otherwise </returns>
+        public virtual bool IsNotVisible()
+        {
+            return IsNotVisible(ImplicitWaitTimeout);
+        }
+
+        /// <summary>
+        /// Returns whether this UI control is invisible or not within the specified timeout.
+        /// If the specified timeout is 0, it will check the current visibility of this UI control.
+        /// If the specified timeout is greater than 0, it will periodically (every half second)
+        /// check until the specified timeout is reached.
+        /// </summary>
+        /// <param name="timeout">  timeout in waiting for the web element </param>
+        /// <returns> <code>true</code> if this UI control does not exist or is invisible within the specified timeout;
+        ///         <code>false</code> otherwise </returns>
+        public virtual bool IsNotVisible(TimeSpan timeout)
+        {
+            if (!IsVisibleNow())
+            {
+                return true;
+            }
+
+            try
+            {
+                WaitUntilNotVisible(timeout);
                 return true;
             }
             catch (WebDriverTimeoutException)

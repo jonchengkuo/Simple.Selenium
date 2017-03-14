@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Simple.Selenium</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Joncheng Kuo</authors>
+    <owners>Joncheng Kuo</owners>
+    <licenseUrl>https://github.com/jonchengkuo/Simple.Selenium/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jonchengkuo/Simple.Selenium</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easy-to-use toolset for building Web UI automation and testing. It provides an easy way to build Page Objects without needing to know much about Selenium.</description>
+    <releaseNotes>First release</releaseNotes>
+    <copyright>Copyright 2017 Joncheng Kuo</copyright>
+    <language>en-US</language>
+    <tags>Selenium WebDriver browser testing automation</tags>
+  </metadata>
+</package>

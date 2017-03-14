@@ -27,7 +27,7 @@ namespace Simple.Selenium.Pages
     ///       public LoginPage()
     ///       {
     ///           // Use the visibility of the User Name text field to determine the availability of this page.
-    ///           IndicatingLocator = UserNameTextField.Locator;
+    ///           IndicatingElementLocator = UserNameTextField.Locator;
     ///       }
     ///
     ///       public void LogIn(string username, string password) {
@@ -102,26 +102,26 @@ namespace Simple.Selenium.Pages
         /// whether or not this page exists and is visible.
         /// Note: The locator can only be set by a derived class.
         /// </summary>
-        public virtual By IndicatingLocator { get; protected set; }
+        public virtual By IndicatingElementLocator { get; protected set; }
 
         /// <summary>
         /// Constructs a base web page object that uses an indicating element to determine the availability of the page.
-        /// Note: If the <code>indicatingLocator</code> is not given in the constructor,
-        /// the <seealso cref="IndicatingLocator"/> property needs to be set before a <code>WaitUntilXXX()</code> method can be called.
+        /// Note: If the <code>indicatingElementLocator</code> is not given in the constructor,
+        /// the <seealso cref="IndicatingElementLocator"/> property needs to be set before a <code>WaitUntilXXX()</code> method can be called.
         /// <param name="indicatingLocator">  (Optional) The <seealso cref="By"/> locator for locating a web element
         /// that can indicate whether or not the page exists and is visible </param>
         /// <param name="webDriver">  (Optional) The WebDriver (i.e., browser) that hosts this web page.
         ///     If it is null, the global default WebDriver, defined by <seealso cref="WebUISettings.DefaultWebDriver"/>,
         ///     will be used (when this web page is used). </param>
         /// </summary>
-        protected BasePage(By indicatingLocator = null, IWebDriver webDriver = null) : base(webDriver)
+        protected BasePage(By indicatingElementLocator = null, IWebDriver webDriver = null) : base(webDriver)
         {
-            IndicatingLocator = indicatingLocator;
+            IndicatingElementLocator = indicatingElementLocator;
         }
 
         protected void ThrowIfIndicatingLocatorNull()
         {
-            if (IndicatingLocator == null)
+            if (IndicatingElementLocator == null)
             {
                 throw new System.NullReferenceException("The IndicatingLocator of this page object is not set." + " You must set it (preferred in your page class constructor) before using this page.");
             }
@@ -209,7 +209,7 @@ namespace Simple.Selenium.Pages
             ThrowIfIndicatingLocatorNull();
             string timeOutMessage = "Waiting for " + this.Name + " to become available (visible).";
             WebDriver.WaitUntil(
-                ExpectedConditions.ElementIsVisible(IndicatingLocator),
+                ExpectedConditions.ElementIsVisible(IndicatingElementLocator),
                 timeout,
                 timeOutMessage);
             return (T)this;
@@ -225,7 +225,7 @@ namespace Simple.Selenium.Pages
             ThrowIfIndicatingLocatorNull();
             string timeOutMessage = "Waiting for " + this.Name + " to become unavailable (invisible).";
             WebDriver.WaitUntil(
-                ExpectedConditions.InvisibilityOfElementLocated(IndicatingLocator),
+                ExpectedConditions.InvisibilityOfElementLocated(IndicatingElementLocator),
                 timeout,
                 timeOutMessage);
             return (T)this;
