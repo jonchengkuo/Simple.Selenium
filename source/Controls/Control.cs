@@ -382,21 +382,6 @@ namespace Simple.Selenium.Controls
                 "Waiting for " + this.Name + " to become not visible.");
         }
 
-        /// <summary>
-        /// Waits until this UI control becomes clickable, or until the specified timeout is reached.
-        /// It returns the located clickable web element.
-        /// </summary>
-        /// <param name="timeout">  timeout in waiting for the web element </param>
-        /// <returns> the located clickable web element </returns>
-        /// <exception cref="WebDriverTimeoutException"> if this UI control is still not clickable after the specified timeout is reached   </exception>
-        public virtual IWebElement WaitUntilClickable(TimeSpan timeout)
-        {
-            return WebDriver.WaitUntil<IWebElement>(
-                ExpectedConditions.ElementToBeClickable(Locator),
-                timeout,
-                "Waiting for " + this.Name + " to become clickable.");
-        }
-
     }
 
 }
